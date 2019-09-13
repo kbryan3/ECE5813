@@ -11,11 +11,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "ProgramOne.h"
 
-int * toBinary(int value, int radix, int operandSize);
-void signedOnesComp(int *value, int operandSize, _Bool pos, _Bool signedOverflow);
-void signedTwosComp(int *value, int operandSize, _Bool pos, _Bool signedOverflow);
-void signedMagnitude(int *value, int operandSize, _Bool pos, _Bool signedOverflow);
+
 
 int main (void)
 {
@@ -29,7 +27,6 @@ int main (void)
     int *pbinaryNum;
     int absValue = 0;
     int maxValue = 0;
-    int pbinaryNumTemp[16];
     _Bool signedOverflow = 0;
     for(int k = 0; k<(sizeof(input)/sizeof(input[0])); k=k+3)
     {
@@ -75,7 +72,7 @@ int main (void)
       }
       printf("Output:                 Value        Maximum       Minimum\n");
       printf("Binary (abs)           0b");
-      pbinaryNum = toBinary(absValue, radix, operandSize);
+      pbinaryNum = toBinary(absValue, operandSize);
       printf("\n");
       printf("Octal (abs)             %#o             %#o         0", absValue, maxValue);
       printf("\n");
@@ -97,8 +94,9 @@ int main (void)
 }
 
 //conversion to binary from https://www.geeksforgeeks.org/program-decimal-binary-conversion/
-int * toBinary(int value, int radix, int operandSize)
+int * toBinary(int value, int operandSize)
 {
+
     static int binaryValue[16];
     int temp =0;
     for(int i = 0; i < 16; i++)
@@ -106,6 +104,7 @@ int * toBinary(int value, int radix, int operandSize)
         binaryValue[i] = temp;
     }
     int n =0;
+    //this while loop was taken from the "geeksforgeeks.org source"
     while (value > 0)
     {
         // storing remainder in binary array
@@ -118,11 +117,13 @@ int * toBinary(int value, int radix, int operandSize)
     {
         printf("%d",binaryValue[i]);
     }
+    //Prints maximum
     printf("   0b");
     for(int i = 0; i <operandSize; i++)
     {
       printf("1");
     }
+    //Prints minimum
     printf("  0b");
     for(int i = 0; i <operandSize; i++)
     {
@@ -208,7 +209,7 @@ void signedTwosComp(int *value, int operandSize, _Bool pos, _Bool signedOverflow
     {
       for(int i = 0; i<16; i++)
       {
-        int temp = value[i];
+        temp = value[i];
         value[i] = !temp;
       }
 
