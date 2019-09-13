@@ -5,6 +5,8 @@
 *
 * @author Kyle Bryan
 *
+* The binary conversion algorithm in the toBinary function was leveraged from:
+* https://www.geeksforgeeks.org/program-decimal-binary-conversion/
 */
 
 #include <stdint.h>
@@ -17,6 +19,7 @@
 
 int main (void)
 {
+   //inputted data per the project
     int input[33] = {-6, 10, 4, -6, 9, 4, -6, 10, 5, -9, 10, 8, 237, 10, 8,
                      0354, 8, 8, 0xEB, 16, 8, -125, 10, 8, 65400, 01, 8, 65400,
                      10, 16, -32701, 10, 16};
@@ -28,6 +31,8 @@ int main (void)
     int absValue = 0;
     int maxValue = 0;
     _Bool signedOverflow = 0;
+
+    //cycle through all the input data
     for(int k = 0; k<(sizeof(input)/sizeof(input[0])); k=k+3)
     {
       value = input[k];
@@ -36,6 +41,7 @@ int main (void)
       positive = (value > 0) ? 1 : 0;
       absValue = abs(value);
       maxValue = pow(2, operandSize)-1;
+      //see if input value to too large to be represented with the given OperandSize
       if(positive)
       {
         signedOverflow = (absValue > maxValue/2) ? 1: 0;
@@ -56,6 +62,7 @@ int main (void)
       {
         printf("Input: Value %d     Radix %d     OperandSize %d\n", value, radix, operandSize);
       }
+      //see if a valid radix value is given
       if(radix != 8 && radix !=10 && radix !=16)
       {
         printf("Invalid Radix Value");
@@ -63,6 +70,7 @@ int main (void)
         printf("\n");
         continue;
       }
+      //see if a valid operandSize is given
       if(operandSize != 4 && operandSize !=8 && operandSize != 16)
       {
         printf("Invalid Operand Size Value");
@@ -141,6 +149,7 @@ void signedOnesComp(int *value, int operandSize, _Bool pos, _Bool signedOverflow
   }
   else
   {
+    //prints a positive or a negative ones complement bit string
     if(pos)
     {
       for(int i = operandSize-1; i >= 0; i--)
@@ -207,12 +216,14 @@ void signedTwosComp(int *value, int operandSize, _Bool pos, _Bool signedOverflow
     }
     else
     {
+      //algorithm does the one complement first and then adds 1
+      //This loop does the ones complement
       for(int i = 0; i<16; i++)
       {
         temp = value[i];
         value[i] = !temp;
       }
-
+      //this loop adds 1 to the ones complement
       while(flag == 0)
       {
         temp2 = value[j];
