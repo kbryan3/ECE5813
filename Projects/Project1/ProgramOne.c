@@ -4,6 +4,8 @@
 * @brief Generates a table of values in different bases, based off a given input values
 *
 * @author Kyle Bryan
+* @date September 13 2019
+* version 1.0
 *
 * The binary conversion algorithm in the toBinary function was leveraged from:
 * https://www.geeksforgeeks.org/program-decimal-binary-conversion/
@@ -81,6 +83,11 @@ int main (void)
       printf("Output:                 Value        Maximum       Minimum\n");
       printf("Binary (abs)           0b");
       pbinaryNum = toBinary(absValue, operandSize);
+      if(pbinaryNum == NULL)
+      {
+        printf("Error: toBinary returned a NULL");
+        continue;
+      }
       printf("\n");
       printf("Octal (abs)             %#o             %#o         0", absValue, maxValue);
       printf("\n");
@@ -289,6 +296,7 @@ void signedMagnitude(int *value, int operandSize, _Bool pos, _Bool signedOverflo
     {
       for(int i = operandSize-1; i >= 0; i--)
       {
+          //adds the necessary sign bit in the MSB position
           if(i == (operandSize-1))
           {
             printf("1");
@@ -297,7 +305,6 @@ void signedMagnitude(int *value, int operandSize, _Bool pos, _Bool signedOverflo
           {
             printf("%d",(value[i]));
           }
-
       }
     }
     printf("     ");
