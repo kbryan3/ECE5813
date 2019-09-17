@@ -20,6 +20,6 @@ Program two prints the ASCII value given an integer value.  Within the main func
 ###### Program 3:
 *programthree.c*, *programthree.h*, *programthree.out*
 
-Program three does bitwise operation on 0xCAFE.
+Program three does bitwise operation on 0xCAFE, and checks if there are 3(and only 3) bits set in the last 4 bits.
 
 *There is code taken from geeksforgeeks.org, which is pointed out in the .c file*  
